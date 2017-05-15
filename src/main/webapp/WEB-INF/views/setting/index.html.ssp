@@ -1,0 +1,64 @@
+<div class="container">
+
+LINEの設定とか、テストメッセージ送る所デス。
+
+  <div id="has-token-area" class="hide">
+    <input type="text" class="form-control" id="notify-msg" placeholder="LINE上で表示するmessageを入力してみてね">
+    <button class="btn btn-lg btn-primary" type="button" id="send-btn">Send</button>
+  </div>
+
+  <div id="no-token-area" class="hide">
+    <a href="javascript:void(0)" id="line-link">1. まず、LINEでログインして下さい</a>
+  </div>
+
+  <p><span id="view-loginId"></span> さん</p>
+
+</div>
+
+<%@ val userInfo:domain.user.User %>
+<%
+  val hasToken = userInfo.token.isDefined
+%>
+<script type="text/javascript">
+<!--
+var loginUserInfo = {
+  name: '${unescape(userInfo.name)}',
+  loginId: '${userInfo.loginId}',
+  hasToken: $.parseJSON('${hasToken}')
+};
+
+$(function(){
+  if(loginUserInfo.hasToken === false) {
+    $("#no-token-area").removeClass("hide");
+  } else {
+    $("#has-token-area").removeClass("hide");
+  }
+
+  $("#line-link").on("click", function(){
+    document.location.href = "/line/authorize";
+  });
+
+  $("#send-btn").on("click", function(){
+    var msg = $("#notify-msg").val();
+    if(msg == '') {
+      alert("messageは必須です");
+      return;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "/api/_send-message",
+      data: {
+        msg : msg
+      },
+      success: function(msg){
+        $("#notify-msg").val("");
+      }
+    });
+  });
+
+  $("#view-loginId").text(loginUserInfo.loginId);
+});
+
+//-->
+</script>
