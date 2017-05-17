@@ -16,15 +16,12 @@ LINEの設定とか、テストメッセージ送る所デス。
 </div>
 
 <%@ val userInfo:domain.user.User %>
-<%
-  val hasToken = userInfo.token.isDefined
-%>
 <script type="text/javascript">
 <!--
 var loginUserInfo = {
   name: '${unescape(userInfo.name)}',
   loginId: '${userInfo.loginId}',
-  hasToken: $.parseJSON('${hasToken}')
+  hasToken: $.parseJSON('${userInfo.token.isDefined}')
 };
 
 $(function(){
