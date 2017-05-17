@@ -2,7 +2,7 @@
 
 OAuth認証をしてLINEにMessageを送るSample
 
-### 手順1. LINE Notify(https://notify-bot.line.me/ja)にアクセスして、サービスを登録
+### 手順1. LINE Notify( https://notify-bot.line.me/ja )にアクセスして、サービスを登録
 Callback URLには `http://localhost:8080/api/_created-code` と登録してください
 
 ### 手順2. 設定ファイルを作成
