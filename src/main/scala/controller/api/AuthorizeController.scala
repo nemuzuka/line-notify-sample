@@ -2,7 +2,6 @@ package controller.api
 
 import controller.{ ApiController, RedirectSupport }
 import domain.user.User
-import entity.LineToken
 import skinny.http._
 import util.ConfigHelper
 
@@ -50,3 +49,5 @@ class AuthorizeController extends ApiController with RedirectSupport {
     }
   }
 }
+
+case class LineToken(status: String, message: String, accessToken: String)
